@@ -1,4 +1,4 @@
-import React, { useState , useContext , useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../axios';
@@ -16,7 +16,7 @@ function Login() {
     email: '',
     password: ''
   })
-  const {rolee , setRolee} = useContext(UserContext);
+  const { rolee, setRolee } = useContext(UserContext);
   const validationSchema = Yup.object({
     email: Yup.string()
       .matches(
@@ -30,12 +30,12 @@ function Login() {
       .required('Password is required'),
   })
   useEffect(() => {
-  if (rolee==="admin" || rolee==="user") {
-    navigate("/layout/Dashboard");
-  }else if(rolee==="security"){
-    navigate("/layout/Visitor");
-  }
-}, [rolee, navigate]);
+    if (rolee === "admin" || rolee === "user") {
+      navigate("/layout/Dashboard");
+    } else if (rolee === "security") {
+      navigate("/layout/Visitor");
+    }
+  }, [rolee, navigate]);
 
 
   const handleChange = (e) => {
@@ -45,35 +45,35 @@ function Login() {
       [name]: value
     })
   }
-   
+
   const responseGoogle = async (authResult) => { // 2
-      try {
-        if (authResult["code"]) {
-          const result = await googleAuth(authResult.code); 
-          console.log("GOOGLE AUTH RESULT:", result);
-          const gRole = result.data?.data?.user?.role?.toString();
-          if (!gRole) {
-            console.error("INVALID RESPONSE PAYLOAD:", result.data);
-            throw new Error("Invalid login response");
-          }
-          setRolee(gRole);
-          toast.success("Google Login Successful");
-          navigate('/layout/Dashboard');
-        } else {
-          // console.log(authResult);
-          throw new Error(authResult);
+    try {
+      if (authResult["code"]) {
+        const result = await googleAuth(authResult.code);
+        console.log("GOOGLE AUTH RESULT:", result);
+        const gRole = result.data?.data?.user?.role?.toString();
+        if (!gRole) {
+          console.error("INVALID RESPONSE PAYLOAD:", result.data);
+          throw new Error("Invalid login response");
         }
-      } catch (e) {
-        toast.error("Google email not registered");
-        console.log('Error while Google Login...', e);
+        setRolee(gRole);
+        toast.success("Google Login Successful");
+        navigate('/layout/Dashboard');
+      } else {
+        // console.log(authResult);
+        throw new Error(authResult);
       }
-    };
+    } catch (e) {
+      toast.error("Google email not registered");
+      console.log('Error while Google Login...', e);
+    }
+  };
 
   const googleLogin = useGoogleLogin({ // 1 
-		onSuccess: responseGoogle,
-		onError: responseGoogle,
-		flow: "auth-code",
-	});
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: "auth-code",
+  });
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -91,7 +91,7 @@ function Login() {
               "Content-Type": "application/json",
             },
           }
-        );       
+        );
         const userRole = response.data?.data?.user?.role?.toString();
         if (!userRole) {
           toast.error("Login failed — unexpected response");
@@ -104,6 +104,22 @@ function Login() {
         } else {
           navigate("/layout/Dashboard");
         }
+        if (rolee === "admin" || rolee === "user") {
+          navigate("/layout/Dashboard");
+        }
+        else if (rolee === "security") {
+          navigate("/layout/Visitor");
+        }
+        else if (rolee === "treasurer") {
+          navigate("/layout/TreasurerDashboard");
+        }
+        else if (rolee === "secretary") {
+          navigate("/layout/SecretaryDashboard");
+        }
+
+
+
+
       } catch (error) {
         console.log(error);
         toast.error("Error logging in");
@@ -146,9 +162,9 @@ function Login() {
     if (!forgotOtp) return toast.error("Please enter OTP");
     setForgotLoading(true);
     try {
-      await axios.post(`${import.meta.env.VITE_URL_BACKEND}/api/v1/users/verify-forgot-password-otp`, { 
-        email: forgotEmail, 
-        otp: forgotOtp 
+      await axios.post(`${import.meta.env.VITE_URL_BACKEND}/api/v1/users/verify-forgot-password-otp`, {
+        email: forgotEmail,
+        otp: forgotOtp
       });
       toast.success("OTP verified");
       setForgotStep(3);
@@ -162,7 +178,7 @@ function Login() {
   const handleResetPassword = async () => {
     if (!newPassword || !confirmPassword) return toast.error("All fields are required");
     if (newPassword !== confirmPassword) return toast.error("Passwords do not match");
-    
+
     // Validate password regex
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
     if (!passwordRegex.test(newPassword)) {
@@ -171,9 +187,9 @@ function Login() {
 
     setForgotLoading(true);
     try {
-      await axios.post(`${import.meta.env.VITE_URL_BACKEND}/api/v1/users/reset-password`, { 
-        email: forgotEmail, 
-        newPassword 
+      await axios.post(`${import.meta.env.VITE_URL_BACKEND}/api/v1/users/reset-password`, {
+        email: forgotEmail,
+        newPassword
       });
       toast.success("Password reset successful! Please login.");
       setIsForgotModalOpen(false);
@@ -230,7 +246,7 @@ function Login() {
 
 
           <div className="flex items-center justify-end">
-            <span 
+            <span
               onClick={() => setIsForgotModalOpen(true)}
               className="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline cursor-pointer transition-colors"
             >
@@ -275,7 +291,7 @@ function Login() {
               Create an account
             </Link>
           </p>
-        </div>
+        </div><object data="" type=""></object>
       </div>
 
       {/* Forgot Password Modal */}
@@ -284,7 +300,7 @@ function Login() {
           <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all border border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold text-gray-900 tracking-tight">Reset Password</h2>
-              <button 
+              <button
                 onClick={() => { setIsForgotModalOpen(false); setForgotStep(1); }}
                 className="text-gray-400 hover:text-gray-700 transition-colors bg-gray-50 hover:bg-gray-100 p-2 rounded-full"
               >
@@ -298,15 +314,15 @@ function Login() {
               <div className="space-y-5">
                 <p className="text-gray-600 text-sm font-medium">Enter your email to receive a password reset OTP.</p>
                 <div>
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     placeholder="Email Address"
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all duration-200"
                     value={forgotEmail}
                     onChange={(e) => setForgotEmail(e.target.value)}
                   />
                 </div>
-                <button 
+                <button
                   onClick={handleForgotPassword}
                   disabled={forgotLoading}
                   className="w-full bg-blue-600 text-white py-3 rounded-xl font-medium hover:bg-blue-700 disabled:bg-blue-400 shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98]"
@@ -320,8 +336,8 @@ function Login() {
               <div className="space-y-5">
                 <p className="text-gray-600 text-sm font-medium">Enter the 6-digit code sent to <b className="text-gray-900">{forgotEmail}</b></p>
                 <div>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder="6-Digit OTP"
                     maxLength={6}
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-center tracking-[0.5em] text-xl font-medium outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all duration-200"
@@ -329,7 +345,7 @@ function Login() {
                     onChange={(e) => setForgotOtp(e.target.value)}
                   />
                 </div>
-                <button 
+                <button
                   onClick={handleVerifyForgotOtp}
                   disabled={forgotLoading}
                   className="w-full bg-blue-600 text-white py-3 rounded-xl font-medium hover:bg-blue-700 disabled:bg-blue-400 shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98]"
@@ -346,22 +362,22 @@ function Login() {
               <div className="space-y-5">
                 <p className="text-gray-600 text-sm font-medium">Create a new secure password.</p>
                 <div className="space-y-4">
-                  <input 
-                    type="password" 
+                  <input
+                    type="password"
                     placeholder="New Password"
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all duration-200"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
-                  <input 
-                    type="password" 
+                  <input
+                    type="password"
                     placeholder="Confirm New Password"
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all duration-200"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <button 
+                <button
                   onClick={handleResetPassword}
                   disabled={forgotLoading}
                   className="w-full bg-blue-600 text-white py-3 rounded-xl font-medium hover:bg-blue-700 disabled:bg-blue-400 shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98]"

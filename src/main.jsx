@@ -42,6 +42,19 @@ const BookingBuy = Load(lazy(() => import('./components/Buy/BookingBuy.jsx')));
 const RefundAdmin = Load(lazy(() => import('./components/RefundAdmin/RefundAdmin.jsx')));
 const Profile = Load(lazy(() => import('./components/Profile/Profile.jsx')));
 
+
+const TreasurerDashboard = Load(lazy(() => import('./components/Treasurer/TreasurerDashboard.jsx')));
+const SecretaryDashboard = Load(lazy(() => import('./components/Secretary/SecretaryDashboard.jsx')));
+
+
+const MaintenanceCollection = Load(lazy(() => import('./components/Treasurer/MaintenanceCollection.jsx')));
+const TreasurerExpenses = Load(lazy(() => import('./components/Treasurer/TreasurerExpenses.jsx')));
+const TreasurerTransactions = Load(lazy(() => import('./components/Treasurer/TreasurerTransactions.jsx')));
+
+
+const Users = Load(lazy(() => import('./components/Users/Users.jsx')));
+const SocietyManager = Load(lazy(() => import('./components/SocietyManager/SocietyManager.jsx')));
+
 // const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 
@@ -79,8 +92,19 @@ const router = createBrowserRouter(
     <Route index element={<Dashboard />} />
     <Route path="dashboard" element={<Dashboard/>} />
     <Route path='OrgLanding' element={<OrgLanding/>} />
+
+    <Route path="Users" element={<Users />} />
+<Route path="SocietyManager" element={<SocietyManager />} />
    
      <Route path="Payment" element={<Payment />} />
+
+
+     <Route path="TreasurerDashboard" element={<TreasurerDashboard />} />
+<Route path="SecretaryDashboard" element={<SecretaryDashboard />} />
+
+<Route path="MaintenanceCollection" element={<MaintenanceCollection />} />
+<Route path="TreasurerExpenses" element={<TreasurerExpenses />} />
+<Route path="TreasurerTransactions" element={<TreasurerTransactions />} />
 
      <Route path="payPayment/:paymentId" element={<Buy />} />
 <Route path="payEvent/:eventId" element={<EventBuy />} />
