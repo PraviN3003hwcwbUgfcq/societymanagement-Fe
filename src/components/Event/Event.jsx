@@ -400,7 +400,7 @@ function Event() {
               </div>
             )}
 
-            {rolee === "admin" && (
+            {(rolee === "admin" || rolee === "secretary") && (
               <button
                 onClick={() => handleDeleteEvent(event._id)}
                 className="block w-full py-2 px-0 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-[7px] text-[0.82rem] font-semibold cursor-pointer transition-colors box-border"
@@ -444,16 +444,14 @@ function Event() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 py-1.5 px-4 font-semibold text-sm cursor-pointer transition-all duration-300 rounded-lg whitespace-nowrap border border-transparent ${
-                isActive
-                  ? "bg-white text-blue-700 shadow-sm border-gray-200/50"
-                  : "bg-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
-              }`}
+              className={`flex items-center gap-2 py-1.5 px-4 font-semibold text-sm cursor-pointer transition-all duration-300 rounded-lg whitespace-nowrap border border-transparent ${isActive
+                ? "bg-white text-blue-700 shadow-sm border-gray-200/50"
+                : "bg-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
+                }`}
             >
               <span>{tab.label}</span>
-              <span className={`inline-flex items-center justify-center min-w-[20px] h-[20px] px-1.5 rounded-full text-xs font-medium ${
-                isActive ? "bg-blue-100/80 text-blue-700" : "bg-gray-300/60 text-gray-600"
-              }`}>
+              <span className={`inline-flex items-center justify-center min-w-[20px] h-[20px] px-1.5 rounded-full text-xs font-medium ${isActive ? "bg-blue-100/80 text-blue-700" : "bg-gray-300/60 text-gray-600"
+                }`}>
                 {tab.count}
               </span>
             </button>
@@ -472,14 +470,15 @@ function Event() {
                 <h2 className="text-xl font-medium text-gray-900 m-0">Upcoming Events</h2>
                 <p className="text-sm text-gray-400 mt-[3px] mb-0">Browse and register for society events</p>
               </div>
-              {rolee === "admin" && (
+              {(rolee === "admin" || rolee === "secretary") && (
                 <button
-                  onClick={() => setShowAddEventForm(!showAddEventForm)}
-                  className="w-full sm:w-auto py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white border-none rounded-lg text-sm font-semibold cursor-pointer transition-colors"
+                  onClick={() => setShowAddEventForm(true)}
+                  className="add-event-trigger"
                 >
-                  {showAddEventForm ? "✕ Cancel" : "+ Add Event"}
+                  + Add Event
                 </button>
               )}
+
             </div>
 
             {upcomingEvents.length === 0 ? (

@@ -43,7 +43,7 @@ const ComplaintCard = React.memo(({ complaint, rolee, onResolve, onDelete, canDe
             e.preventDefault();
             onDelete(complaint._id, complaint.subject);
           }}
-          className="absolute top-3 right-3 z-30 flex items-center justify-center p-2 bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-700 border border-red-100 hover:border-red-300 rounded-full shadow-sm backdrop-blur-md cursor-pointer transition-all active:scale-95"
+          className="absolute top-12 right-8 z-30 flex items-center justify-center p-2 bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-700 border border-red-100 hover:border-red-300 rounded-full shadow-sm backdrop-blur-md cursor-pointer transition-all active:scale-95"
           title="Delete Complaint"
         >
           <Trash2 strokeWidth={2.5} className="w-[18px] h-[18px]" />

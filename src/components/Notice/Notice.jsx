@@ -15,7 +15,7 @@ const NoticeCard = React.memo(({ notice, rolee, onDeleteRequest }) => {
     <div className="relative bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 flex flex-col h-full group">
       
       {/* Delete Button - Top Right Absolute */}
-      {rolee === "admin" && (
+      {(rolee === "admin" || rolee === "secretary") && (
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -166,13 +166,13 @@ export default function Announcements() {
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 mt-8 gap-4">
         <h2 className="text-xl font-medium text-gray-900 m-0">Recent Notices</h2>
-        {rolee === "admin" && (
+        {(rolee === "admin" || rolee === "secretary") && (
           <button
-            onClick={() => setIsNoticeModalOpen(true)}
-            className="w-full sm:w-auto py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white border-none rounded-lg text-sm font-semibold cursor-pointer transition-colors whitespace-nowrap"
-          >
-            + Add Notice
-          </button>
+  onClick={() => setIsNoticeModalOpen(true)}
+  className="add-notice-trigger w-full sm:w-auto py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white border-none rounded-lg text-sm font-semibold cursor-pointer transition-colors whitespace-nowrap"
+>
+  + Add Notice
+</button>
         )}
       </div>
 

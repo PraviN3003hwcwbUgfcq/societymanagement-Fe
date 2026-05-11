@@ -228,6 +228,7 @@ const NAV_ITEMS = [
 { name: "SecretaryComplaints", icon: TriangleAlert, roles: ["secretary"] },
 { name: "SecretaryResidents", icon: Users, roles: ["secretary"] },
 { name: "SecretaryEvents", icon: CalendarDays, roles: ["secretary"] },
+{ name: "SocietyTransfer", icon: Building2, roles: ["secretary"] },
 
 
   // TreasurerDashboard
@@ -236,14 +237,15 @@ const NAV_ITEMS = [
 { name: "MaintenanceCollection", icon: ReceiptText, roles: ["treasurer"] },
 { name: "TreasurerExpenses", icon: ArrowUp, roles: ["treasurer"] },
 { name: "TreasurerTransactions", icon: BarChart2, roles: ["treasurer"] },
-{ name: "Profile", icon: UserCircle, roles: ["admin", "resident", "security", "treasurer", "secretary"] },
+
 
   { name: "Visitor",    icon: UserCheck, roles: ["admin", "resident", "security"] },
   { name: "Poll",       icon: BarChart2, roles: ["admin", "resident"] },
   { name: "Complaint",  icon: TriangleAlert, roles: ["admin", "resident"] },
   { name: "Notice",     icon: Bell, roles: ["admin", "resident"] },
   { name: "Refunds",    icon: ReceiptText, roles: ["admin"] },
-  { name: "Profile",    icon: UserCircle, roles: ["admin", "resident", "security"] },
+  { name: "Profile", icon: UserCircle, roles: ["admin", "resident", "security", "treasurer", "secretary"] },
+  // { name: "Profile",    icon: UserCircle, roles: ["admin", "resident", "security"] },
 ];
 
 function SideBar({ isMobileOpen, closeMobile }) {

@@ -23,6 +23,8 @@ const Load = (Component) => (props) => (
   </Suspense>
 );
 
+
+
 const SocietyDetails = Load(lazy(() => import('./components/SocietyDetail/SocietyDetail.jsx')));
 const Register = Load(lazy(() => import('./components/Register/Register.jsx')));
 const Payment = Load(lazy(() => import('./components/Payment/Payment.jsx')));
@@ -45,6 +47,14 @@ const Profile = Load(lazy(() => import('./components/Profile/Profile.jsx')));
 
 const TreasurerDashboard = Load(lazy(() => import('./components/Treasurer/TreasurerDashboard.jsx')));
 const SecretaryDashboard = Load(lazy(() => import('./components/Secretary/SecretaryDashboard.jsx')));
+
+const SecretaryNotice = Load(lazy(() => import('./components/Secretary/SecretaryNotice.jsx')));
+const SecretaryComplaints = Load(lazy(() => import('./components/Secretary/SecretaryComplaints.jsx')));
+const SecretaryResidents = Load(lazy(() => import('./components/Secretary/SecretaryResidents.jsx')));
+const SecretaryEvents = Load(lazy(() => import('./components/Secretary/SecretaryEvents.jsx')));
+const SocietyTransfer = Load(lazy(() => import('./components/Secretary/SocietyTransfer.jsx')));
+
+
 
 
 const MaintenanceCollection = Load(lazy(() => import('./components/Treasurer/MaintenanceCollection.jsx')));
@@ -101,6 +111,12 @@ const router = createBrowserRouter(
 
      <Route path="TreasurerDashboard" element={<TreasurerDashboard />} />
 <Route path="SecretaryDashboard" element={<SecretaryDashboard />} />
+
+<Route path="SecretaryNotice" element={<SecretaryNotice />} />
+<Route path="SecretaryComplaints" element={<SecretaryComplaints />} />
+<Route path="SecretaryResidents" element={<SecretaryResidents />} />
+<Route path="SecretaryEvents" element={<SecretaryEvents />} />
+<Route path="SocietyTransfer" element={<SocietyTransfer />} />
 
 <Route path="MaintenanceCollection" element={<MaintenanceCollection />} />
 <Route path="TreasurerExpenses" element={<TreasurerExpenses />} />
