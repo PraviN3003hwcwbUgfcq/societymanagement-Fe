@@ -324,7 +324,6 @@
 
 
 
-
 import React, { useEffect, useState } from "react";
 import axios from "../../axios";
 import { toast } from "react-hot-toast";
@@ -345,6 +344,7 @@ const SocietyTransfer = () => {
     houseNo: "",
     transferDate: "",
     reason: "",
+    documents: null,
   });
 
   const fetchTransfers = async () => {
@@ -369,9 +369,11 @@ const SocietyTransfer = () => {
       : transfers.filter((item) => item.status === selectedStatus);
 
   const handleChange = (e) => {
+    const { name, value, files, type } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: type === "file" ? files[0] : value,
     }));
   };
 
@@ -379,8 +381,17 @@ const SocietyTransfer = () => {
     e.preventDefault();
 
     try {
-      await axios.post("/society-transfer/create", formData, {
+      const sendData = new FormData();
+
+      Object.keys(formData).forEach((key) => {
+        sendData.append(key, formData[key]);
+      });
+
+      await axios.post("/society-transfer/create", sendData, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       toast.success("Transfer record added");
@@ -396,6 +407,7 @@ const SocietyTransfer = () => {
         houseNo: "",
         transferDate: "",
         reason: "",
+        documents: null,
       });
 
       setShowForm(false);
@@ -565,6 +577,7 @@ const SocietyTransfer = () => {
                 <th className="px-6 py-4 font-medium">New Owner</th>
                 <th className="px-6 py-4 font-medium">Flat</th>
                 <th className="px-6 py-4 font-medium">Date</th>
+                <th className="px-6 py-4 font-medium">Document</th>
                 <th className="px-6 py-4 font-medium">Status</th>
                 <th className="px-6 py-4 font-medium">Change Status</th>
                 <th className="px-6 py-4 font-medium">Action</th>
@@ -591,6 +604,21 @@ const SocietyTransfer = () => {
 
                   <td className="px-6 py-5 text-gray-700">
                     {formatDate(item.transferDate)}
+                  </td>
+
+                  <td className="px-6 py-5">
+                    {item.documents ? (
+                      <a
+                        href={item.documents}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-blue-600 font-medium hover:underline"
+                      >
+                        View
+                      </a>
+                    ) : (
+                      <span className="text-gray-400">No document</span>
+                    )}
                   </td>
 
                   <td className="px-6 py-5">{getStatusBadge(item.status)}</td>
@@ -622,10 +650,7 @@ const SocietyTransfer = () => {
 
               {filteredTransfers.length === 0 && (
                 <tr>
-                  <td
-                    colSpan="7"
-                    className="text-center py-8 text-gray-400"
-                  >
+                  <td colSpan="8" className="text-center py-8 text-gray-400">
                     No transfer records found
                   </td>
                 </tr>
@@ -751,6 +776,20 @@ const SocietyTransfer = () => {
                     required
                   />
                 </div>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-3">
+                  Transfer Document
+                </h3>
+
+                <input
+                  type="file"
+                  name="documents"
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3"
+                  required
+                />
               </div>
 
               <textarea
