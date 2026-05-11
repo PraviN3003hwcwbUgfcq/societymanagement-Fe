@@ -607,18 +607,24 @@ const SocietyTransfer = () => {
                   </td>
 
                   <td className="px-6 py-5">
-                    {item.documents ? (
-                      <a
-                        href={item.documents}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-blue-600 font-medium hover:underline"
-                      >
-                        View
-                      </a>
-                    ) : (
-                      <span className="text-gray-400">No document</span>
-                    )}
+                  <td className="px-6 py-5">
+  {item.documents ? (
+    <a
+      href={
+        item.documents?.startsWith("http")
+          ? item.documents
+          : `${import.meta.env.VITE_URL_BACKEND}/${item.documents}`
+      }
+      target="_blank"
+      rel="noreferrer"
+      className="text-blue-600 font-medium hover:underline"
+    >
+      View
+    </a>
+  ) : (
+    <span className="text-gray-400">No document</span>
+  )}
+</td>
                   </td>
 
                   <td className="px-6 py-5">{getStatusBadge(item.status)}</td>
