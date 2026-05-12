@@ -284,14 +284,14 @@ function Login() {
           </button>
         </div>
 
-        <div className="text-center mt-5">
+        {/* <div className="text-center mt-5">
           <p className="text-sm text-gray-600 font-medium">
             Don't have an account?{' '}
             <Link to="/register" className="text-blue-600 font-medium hover:text-blue-700 hover:underline transition-colors">
               Create an account
-            </Link>
+            </Link> 
           </p>
-        </div><object data="" type=""></object>
+        </div><object data="" type=""></object> */}
       </div>
 
       {/* Forgot Password Modal */}

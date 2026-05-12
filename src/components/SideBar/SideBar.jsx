@@ -222,6 +222,7 @@ const NAV_ITEMS = [
  { name: "Users", icon: Users, roles: ["admin"] },
   { name: "SocietyManager", icon: UserCog, roles: ["admin"] },
   
+  
 
   { name: "SecretaryDashboard", icon: LayoutDashboard, roles: ["secretary"] },
 { name: "SecretaryNotice", icon: Bell, roles: ["secretary"] },
@@ -231,12 +232,14 @@ const NAV_ITEMS = [
 { name: "SocietyTransfer", icon: Building2, roles: ["secretary"] },
 
 
+
   // TreasurerDashboard
 
   { name: "TreasurerDashboard", icon: Wallet, roles: ["treasurer"] },
 { name: "MaintenanceCollection", icon: ReceiptText, roles: ["treasurer"] },
 { name: "TreasurerExpenses", icon: ArrowUp, roles: ["treasurer"] },
 { name: "TreasurerTransactions", icon: BarChart2, roles: ["treasurer"] },
+{ name: "SocietyPayroll", icon: ReceiptText, roles: ["treasurer"] },
 
 
   { name: "Visitor",    icon: UserCheck, roles: ["admin", "resident", "security"] },
